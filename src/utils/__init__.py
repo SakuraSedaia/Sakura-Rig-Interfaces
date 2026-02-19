@@ -14,6 +14,7 @@
 from . import icons
 from . import file
 from . import image
+from . import config
 
 def register():
     icons.register()

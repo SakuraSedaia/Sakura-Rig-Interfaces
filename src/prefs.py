@@ -14,7 +14,30 @@
 import bpy
 import bpy.types as T
 import bpy.utils as U
-from bpy.props import BoolProperty
+import bpy.props as P
+import bpy.ops as O
+
+class SEDAIA_OT_open_config_path(T.Operator):
+    """
+    Opens the current configuration folder in the OS file explorer.
+    """
+    bl_idname = "sedaia.open_config_path"
+    bl_label = "Open Config Folder"
+
+    def execute(self, context):
+        from .utils import config
+        path = get_preferences(context).config_path
+        if not path:
+            path = config.get_default_config_path()
+        
+        import os
+        dir_path = os.path.dirname(path)
+        if os.path.exists(dir_path):
+            bpy.ops.wm.path_open(filepath=dir_path)
+            return {'FINISHED'}
+        else:
+            self.report({'ERROR'}, f"Path does not exist: {dir_path}")
+            return {'CANCELLED'}
 
 class SEDAIA_AddonPreferences(T.AddonPreferences):
     """
@@ -22,15 +45,34 @@ class SEDAIA_AddonPreferences(T.AddonPreferences):
     """
     bl_idname = __package__
 
-    show_debug_info: BoolProperty(
+    show_debug_info: P.BoolProperty(
         name="Show Debug Information",
         description="Enable additional logging and debug tools in the UI",
         default=False
     )
 
+    config_path: P.StringProperty(
+        name="Config Path",
+        description="Path to the Sedaia Rig Interfaces config file",
+        default="",
+        subtype="FILE_PATH"
+    )
+
+
     def draw(self, context):
         layout = self.layout
+        
+        # Initialize default config path if empty
+        if not self.config_path:
+            from .utils import config
+            self.config_path = config.get_default_config_path()
+
         layout.prop(self, "show_debug_info")
+        
+        box = layout.box()
+        box.label(text="External Configuration")
+        box.prop(self, "config_path")
+        box.operator("sedaia.open_config_path", icon='FILE_FOLDER')
 
 def get_preferences(context=None):
     """
@@ -41,6 +83,7 @@ def get_preferences(context=None):
     return context.preferences.addons[__package__].preferences
 
 classes = [
+    SEDAIA_OT_open_config_path,
     SEDAIA_AddonPreferences,
 ]
 

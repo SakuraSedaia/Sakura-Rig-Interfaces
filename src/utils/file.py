@@ -13,15 +13,50 @@
 
 import os
 import shutil
+import json
 
 def ensure_directory(path):
     """
     Ensures that a directory exists, creating it if necessary.
     """
-    if not os.path.exists(path):
-        os.makedirs(path)
+    if not path:
+        return False
+    
+    # If path is a file, get directory
+    if os.path.isfile(path) or ('.' in os.path.basename(path) and not os.path.isdir(path)):
+        dir_path = os.path.dirname(path)
+    else:
+        dir_path = path
+
+    if not os.path.exists(dir_path):
+        os.makedirs(dir_path)
         return True
     return False
+
+def read_json(path):
+    """
+    Reads a JSON file and returns the data.
+    """
+    if os.path.exists(path):
+        try:
+            with open(path, 'r') as f:
+                return json.load(f)
+        except Exception as e:
+            print(f"Error reading JSON: {e}")
+    return {}
+
+def write_json(path, data):
+    """
+    Writes data to a JSON file.
+    """
+    try:
+        ensure_directory(path)
+        with open(path, 'w') as f:
+            json.dump(data, f, indent=4)
+        return True
+    except Exception as e:
+        print(f"Error writing JSON: {e}")
+        return False
 
 def copy_file(src, dst):
     """
