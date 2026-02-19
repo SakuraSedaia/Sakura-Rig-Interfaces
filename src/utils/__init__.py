@@ -11,44 +11,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-bl_info = {
-    "name": "Sedaia Minecraft Utilities.",
-    "category": "Interface",
-    "author": "Sakura Sedaia <sakusedaia@outlook.com>",
-    "version": (4, 0, 0),
-    "blender": (5, 0, 0),
-    "location": "",
-    "description": "",
-    "warning": "",
-    "doc_url": "",
-    "tracker_url": "",
-    "wiki_url": "",
-}
-
-import bpy
-from . import utils
-
-modules = [
-    utils,
-]
-
-classes = [
-
-]
+from . import icons
+from . import file
+from . import image
 
 def register():
-    for m in modules:
-        m.register()
-
-    for c in classes:
-        bpy.utils.register_class(c)
+    icons.register()
 
 def unregister():
-    for m in reversed(modules):
-        m.unregister()
-
-    for c in reversed(classes):
-        bpy.utils.unregister_class(c)
-
-if __name__ == "__main__":
-    register()
+    icons.unregister()

@@ -10,6 +10,11 @@ The current plan is to integrate a smart loader that will automatically detect t
 ## General Extension Changes
 
 - Purged all old code, beginning a new project from scratch.
+- Implemented a custom icons module and registration.
+- Created a new `utils` sub-module for shared logic.
+  - Moved `icons` to `utils.icons`.
+  - Added `utils.file` for file operations.
+  - Added `utils.image` for image processing.
 
 ---
 
