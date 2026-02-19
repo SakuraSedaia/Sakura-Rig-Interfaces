@@ -1,10 +1,21 @@
-## Sakura's Rig Interfaces V3
+# Version 4 Alpha
 
-Current Version: 3.1.0
-Targeted Blender: 5.0
-Minimum Blender: 4.2
+## Summary
+Version 4 is a complete refactor of the extension, focusing on a more modular approach to the UI and backend to make it easier to maintain and expand upon, as well as integrate interfaces for more rigs at once.
+
+An Issue I began to face with V3 is that while multiple rig UI's were supported, there were conflicts when it came to the Custom Properties, an example being that the Arm Type property was originally set in the UI for SACR R7, but when it came to R8, the setting in R7 overwrote the one in R8, so that if I added a new Arm type for R8, it would not be available for real.
+
+The current plan is to integrate a smart loader that will automatically detect the rig version and load the appropriate UI so that any conflicts with Custom Properties cannot happen.
+
+## General Extension Changes
+
+- Purged all old code, beginning a new project from scratch.
 
 ---
+
+# Version 3.1.0
+
+## Summary
 
 V3.1.0 is a small corrective release fixing some minor navigation issues I experienced with the UI in practical use as well as fixing some minor issues I personally noticed.
 
@@ -12,7 +23,6 @@ These issues and changes were brought about after a render that I worked on foll
 
 On the backend, a lot of dirty laundry was cleaned up, mainly regarding unused variables, useless characters, and bad naming semantics.
 
----
 
 ## General Extension Changes
 
