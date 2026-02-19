@@ -18,6 +18,7 @@ The current plan is to integrate a smart loader that will automatically detect t
 - Implemented a basic `prefs` submodule for addon preferences.
 - Updated Python style conventions in `.agent-guidelines.md` to prefer BPY module aliases (T, U, O).
 - Refactored `src/` to comply with the new BPY module calling conventions.
+- Added "No Commit" rule to `.agent-guidelines.md`.
 
 ---
 
