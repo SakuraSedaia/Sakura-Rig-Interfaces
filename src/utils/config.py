@@ -19,12 +19,8 @@ def get_default_config_path():
     """
     Returns the default path for the configuration file.
     """
-    # Use extension_path_user if available, otherwise fallback to local folder
     # Extension path is standard for Blender extensions
-    try:
-        base_path = U.extension_path_user(__package__, create=True)
-    except:
-        base_path = os.path.dirname(os.path.dirname(__file__))
+    base_path = U.extension_path_user(__package__, create=True, path="")
 
     return os.path.join(base_path, "config.json")
 
