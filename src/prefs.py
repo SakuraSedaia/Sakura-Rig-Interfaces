@@ -25,17 +25,16 @@ class SEDAIA_OT_open_config_path(T.Operator):
     bl_label = "Open Config Folder"
 
     def execute(self, context):
-        from .utils import config, file as F
+        from .utils import file as F
         path = get_preferences(context).config_path
-        if not path:
-            path = config.get_default_config_path()
         
         import os
-        dir_path = os.path.dirname(path)
+        dir_path = os.path.dirname(path) if path else None
+        
         if F.open_path(dir_path):
             return {'FINISHED'}
         else:
-            self.report({'ERROR'}, f"Path does not exist: {dir_path}")
+            self.report({'ERROR'}, f"Could not open path: {dir_path or 'Default'}")
             return {'CANCELLED'}
 
 class SEDAIA_AddonPreferences(T.AddonPreferences):
