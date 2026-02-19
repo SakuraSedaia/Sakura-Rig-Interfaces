@@ -11,11 +11,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+from importlib import reload
+import bpy
 bl_info = {
-    "name": "Sedaia Minecraft Utilities.",
+    "name": "Sakuras Rig Interfaces",
     "category": "Interface",
     "author": "Sakura Sedaia <sakusedaia@outlook.com>",
-    "version": (4, 0, 0),
+    "version": (3, 0, 0),
     "blender": (5, 0, 0),
     "location": "",
     "description": "",
@@ -25,27 +27,39 @@ bl_info = {
     "wiki_url": "",
 }
 
-modules = [
 
-]
+if "modules" in locals():
+    reload(modules)
+else:
+    from . import modules
 
-classes = [
+O = bpy.ops
+# Manifest
+module_info = {
+    "author": "Sakura Sedaia",
+    "author_id": "SEDAIA",
 
-]
+    "name": "Player Skin Manager",
+    "id": "SKIN_MANAGER",
+    "version": (1, 0, 0),
+    "description": "A Skin Management utility which allows users to download, load, and apply Skins from Mojang Servers",
+    "type": "util",
+
+    "blender": (5, 0, 0),
+
+    "warning": "",
+    "doc_url": "",
+    "tracker_url": "",
+}
+
 
 def register():
-    for c in classes:
-        U.register_class(c)
+    modules.register()
 
-    for m in modules:
-        m.register()
 
 def unregister():
-    for m in reversed(modules):
-        m.unregister()
+    modules.unregister()
 
-    for c in reversed(classes):
-        U.unregister_class(c)
 
 if __name__ == "__main__":
     register()
