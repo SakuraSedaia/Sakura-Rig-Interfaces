@@ -27,9 +27,11 @@ bl_info = {
 
 import bpy
 from . import utils
+from . import prefs
 
 modules = [
     utils,
+    prefs,
 ]
 
 classes = [

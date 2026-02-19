@@ -15,6 +15,7 @@ The current plan is to integrate a smart loader that will automatically detect t
   - Moved `icons` to `utils.icons`.
   - Added `utils.file` for file operations.
   - Added `utils.image` for image processing.
+- Implemented a basic `prefs` submodule for addon preferences.
 
 ---
 
