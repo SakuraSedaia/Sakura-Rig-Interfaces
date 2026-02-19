@@ -16,6 +16,8 @@ The current plan is to integrate a smart loader that will automatically detect t
   - Added `utils.file` for file operations.
   - Added `utils.image` for image processing.
 - Implemented a basic `prefs` submodule for addon preferences.
+- Updated Python style conventions in `.agent-guidelines.md` to prefer BPY module aliases (T, U, O).
+- Refactored `src/` to comply with the new BPY module calling conventions.
 
 ---
 

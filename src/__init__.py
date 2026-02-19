@@ -26,6 +26,7 @@ bl_info = {
 }
 
 import bpy
+import bpy.utils as U
 from . import utils
 from . import prefs
 
@@ -43,14 +44,14 @@ def register():
         m.register()
 
     for c in classes:
-        bpy.utils.register_class(c)
+        U.register_class(c)
 
 def unregister():
     for m in reversed(modules):
         m.unregister()
 
     for c in reversed(classes):
-        bpy.utils.unregister_class(c)
+        U.unregister_class(c)
 
 if __name__ == "__main__":
     register()

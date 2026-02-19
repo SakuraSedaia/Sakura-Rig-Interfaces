@@ -12,6 +12,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 import os
+import bpy.utils as U
 import bpy.utils.previews
 
 # Global variable to hold the icon collection
@@ -22,7 +23,7 @@ def register():
     """
     Registers the custom icons.
     """
-    pcoll = bpy.utils.previews.new()
+    pcoll = U.previews.new()
 
     # Path to the icons directory
     icons_dir = os.path.join(os.path.dirname(__file__), "icons")
@@ -43,7 +44,7 @@ def unregister():
     Unregisters the custom icons.
     """
     for pcoll in preview_collections.values():
-        bpy.utils.previews.remove(pcoll)
+        U.previews.remove(pcoll)
     preview_collections.clear()
 
 

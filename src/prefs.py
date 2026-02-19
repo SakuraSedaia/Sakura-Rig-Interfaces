@@ -12,10 +12,11 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 import bpy
-from bpy.types import AddonPreferences
+import bpy.types as T
+import bpy.utils as U
 from bpy.props import BoolProperty
 
-class SEDAIA_AddonPreferences(AddonPreferences):
+class SEDAIA_AddonPreferences(T.AddonPreferences):
     """
     Main preferences for the Sedaia Rig Interfaces addon.
     """
@@ -45,8 +46,8 @@ classes = [
 
 def register():
     for cls in classes:
-        bpy.utils.register_class(cls)
+        U.register_class(cls)
 
 def unregister():
     for cls in reversed(classes):
-        bpy.utils.unregister_class(cls)
+        U.unregister_class(cls)
