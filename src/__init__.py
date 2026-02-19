@@ -25,8 +25,11 @@ bl_info = {
     "wiki_url": "",
 }
 
-modules = [
+import bpy
+from . import icons
 
+modules = [
+    icons,
 ]
 
 classes = [
@@ -34,18 +37,18 @@ classes = [
 ]
 
 def register():
-    for c in classes:
-        U.register_class(c)
-
     for m in modules:
         m.register()
+
+    for c in classes:
+        bpy.utils.register_class(c)
 
 def unregister():
     for m in reversed(modules):
         m.unregister()
 
     for c in reversed(classes):
-        U.unregister_class(c)
+        bpy.utils.unregister_class(c)
 
 if __name__ == "__main__":
     register()
