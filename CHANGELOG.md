@@ -20,6 +20,8 @@ The current plan is to integrate a smart loader that will automatically detect t
 - Added a custom configuration path implementation for storing non-addon preferences (e.g., skin download settings) in an external JSON file.
 - Updated local file storage to use `bpy.utils.extension_path_user` for Blender Extension guideline compliance.
 - Refactored `src/` to comply with the new BPY module calling conventions.
+- Implemented a basic skin panel in `src/interface/skin_panel.py`.
+- Created an `interface` sub-module to manage UI components.
 
 ---
 
