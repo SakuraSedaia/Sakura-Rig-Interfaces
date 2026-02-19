@@ -77,3 +77,13 @@ def delete_file(path):
         os.remove(path)
         return True
     return False
+
+def open_path(path):
+    """
+    Opens a path in the OS file explorer.
+    """
+    import bpy.ops as O
+    if os.path.exists(path):
+        O.wm.path_open(filepath=path)
+        return True
+    return False

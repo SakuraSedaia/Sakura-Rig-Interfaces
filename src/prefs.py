@@ -25,15 +25,14 @@ class SEDAIA_OT_open_config_path(T.Operator):
     bl_label = "Open Config Folder"
 
     def execute(self, context):
-        from .utils import config
+        from .utils import config, file as F
         path = get_preferences(context).config_path
         if not path:
             path = config.get_default_config_path()
         
         import os
         dir_path = os.path.dirname(path)
-        if os.path.exists(dir_path):
-            bpy.ops.wm.path_open(filepath=dir_path)
+        if F.open_path(dir_path):
             return {'FINISHED'}
         else:
             self.report({'ERROR'}, f"Path does not exist: {dir_path}")

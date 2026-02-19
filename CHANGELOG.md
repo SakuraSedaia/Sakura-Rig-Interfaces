@@ -14,6 +14,7 @@ The current plan is to integrate a smart loader that will automatically detect t
 - Created a new `utils` sub-module for shared logic.
   - Moved `icons` to `utils.icons`.
   - Added `utils.file` for file operations.
+    - Consolidated file path opening logic into `utils.file.open_path`.
   - Added `utils.image` for image processing.
 - Implemented a basic `prefs` submodule for addon preferences.
 - Added a custom configuration path implementation for storing non-addon preferences (e.g., skin download settings) in an external JSON file.
