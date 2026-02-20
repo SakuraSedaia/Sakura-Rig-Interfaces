@@ -17,24 +17,6 @@ import bpy.utils as U
 import bpy.props as P
 import bpy.ops as O
 
-class SEDAIA_OT_open_config_path(T.Operator):
-    """
-    Opens the current configuration folder in the OS file explorer.
-    """
-    bl_idname = "sedaia.open_config_path"
-    bl_label = "Open Config Folder"
-
-    def execute(self, context):
-        from .utils import file as F
-        from bpy.utils import extension_path_user
-        path = extension_path_user(__package__, create=True, path="")
-        
-        if F.open_path(path):
-            return {'FINISHED'}
-        else:
-            self.report({'ERROR'}, f"Could not open path: {path}")
-            return {'CANCELLED'}
-
 class SEDAIA_AddonPreferences(T.AddonPreferences):
     """
     Main preferences for the Sedaia Rig Interfaces addon.
@@ -67,16 +49,15 @@ class SEDAIA_AddonPreferences(T.AddonPreferences):
     )
 
     def draw(self, context):
-        layout = self.layout
+        ui = self.layout
 
-        layout.prop(self, "show_debug_info")
-        layout.prop(self, "prompt_to_refresh_player_data")
+        ui.prop(self, "show_debug_info")
+        ui.prop(self, "prompt_to_refresh_player_data")
         
-        box = layout.box()
+        box = ui.box()
         box.label(text="Local Storage")
         box.prop(self, "utility_bone_name")
         box.prop(self, "skin_path")
-        box.operator("sedaia.open_config_path", icon='FILE_FOLDER', text="Open Storage Folder")
 
 def get_preferences(context=None):
     """
@@ -87,7 +68,6 @@ def get_preferences(context=None):
     return context.preferences.addons[__package__].preferences
 
 classes = [
-    SEDAIA_OT_open_config_path,
     SEDAIA_AddonPreferences,
 ]
 
