@@ -14,10 +14,12 @@
 from . import icons
 from . import file
 from . import image
-from . import config
+from . import operators
 
 def register():
     icons.register()
+    operators.register()
 
 def unregister():
     icons.unregister()
+    operators.unregister()

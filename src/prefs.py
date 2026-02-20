@@ -26,15 +26,13 @@ class SEDAIA_OT_open_config_path(T.Operator):
 
     def execute(self, context):
         from .utils import file as F
-        path = get_preferences(context).config_path
+        from bpy.utils import extension_path_user
+        path = extension_path_user(__package__, create=True, path="")
         
-        import os
-        dir_path = os.path.dirname(path) if path else None
-        
-        if F.open_path(dir_path):
+        if F.open_path(path):
             return {'FINISHED'}
         else:
-            self.report({'ERROR'}, f"Could not open path: {dir_path or 'Default'}")
+            self.report({'ERROR'}, f"Could not open path: {path}")
             return {'CANCELLED'}
 
 class SEDAIA_AddonPreferences(T.AddonPreferences):
@@ -49,28 +47,36 @@ class SEDAIA_AddonPreferences(T.AddonPreferences):
         default=False
     )
 
-    config_path: P.StringProperty(
-        name="Config Path",
-        description="Path to the Sedaia Rig Interfaces config file",
-        default="",
-        subtype="FILE_PATH"
+    prompt_to_refresh_player_data: P.BoolProperty(
+        name="Prompt to Regen Player Data",
+        description="Ask the user if they want to refresh player data when it already exists",
+        default=True
     )
 
+    utility_bone_name: P.StringProperty(
+        name="Utility Bone Name",
+        description="Name of the bone used for skin utility properties",
+        default="Sedaia.Skin_Utility_Config"
+    )
+
+    skin_path: P.StringProperty(
+        name="Skin Path",
+        description="Path to store downloaded skins",
+        default="",
+        subtype="DIR_PATH"
+    )
 
     def draw(self, context):
         layout = self.layout
-        
-        # Initialize default config path if empty
-        if not self.config_path:
-            from .utils import config
-            self.config_path = config.get_default_config_path()
 
         layout.prop(self, "show_debug_info")
+        layout.prop(self, "prompt_to_refresh_player_data")
         
         box = layout.box()
-        box.label(text="External Configuration")
-        box.prop(self, "config_path")
-        box.operator("sedaia.open_config_path", icon='FILE_FOLDER')
+        box.label(text="Local Storage")
+        box.prop(self, "utility_bone_name")
+        box.prop(self, "skin_path")
+        box.operator("sedaia.open_config_path", icon='FILE_FOLDER', text="Open Storage Folder")
 
 def get_preferences(context=None):
     """

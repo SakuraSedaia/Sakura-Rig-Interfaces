@@ -13,54 +13,23 @@
 
 import bpy
 import bpy.types as T
-import bpy.utils as U
+from .common import *
 
-class SEDAIA_PT_skin_utility(T.Panel):
-    """
-    Main panel for the Sedaia Skin Utility.
-    """
-    bl_label = "Sedaia Skin Utility"
-    bl_idname = "SEDAIA_PT_skin_utility"
-    bl_space_type = 'VIEW_3D'
-    bl_region_type = 'UI'
-    bl_category = "Sedaia"
-
-    def draw(self, context):
-        layout = self.layout
-        layout.label(text="Skin Downloader coming soon...")
-
-classes = [
-    SEDAIA_PT_skin_utility,
-]
-
-def register():
-    for cls in classes:
-        U.register_class(cls)
-
-def unregister():
-    for cls in reversed(classes):
-        U.unregister_class(cls)
-
-import bpy
-import bpy.types as T
-from ..utils import config as C
-
-class SEDAIA_PT_skin_panel(T.Panel):
+class SEDAIA_PT_skin_panel(CorePanel):
     """
     Panel for Minecraft Skin Utility operations.
     """
     bl_label = "Skin Utility"
     bl_idname = "SEDAIA_PT_skin_panel"
-    bl_space_type = "VIEW_3D"
-    bl_region_type = "UI"
-    bl_category = "Sedaia Skin Utility"
     bl_order = 0
 
     @classmethod
     def poll(cls, context):
         try:
+            from ..prefs import get_preferences
+            prefs = get_preferences(context)
             r = context.active_object
-            utility_bone_name = C.get_setting("utility_bone_name", "Sedaia.Skin_Utility_Config")
+            utility_bone_name = prefs.utility_bone_name
             if r and r.type == "ARMATURE" and r.data:
                 if context.active_object.pose.bones.get(utility_bone_name) is not None:
                     return True
@@ -69,12 +38,14 @@ class SEDAIA_PT_skin_panel(T.Panel):
             return False
 
     def draw(self, context):
+        from ..prefs import get_preferences
+        prefs = get_preferences(context)
         layout = self.layout
         rig = context.active_object
         rig_bones = rig.pose.bones
         
-        utility_bone_name = C.get_setting("utility_bone_name", "Sedaia.Skin_Utility_Config")
-        skin_path = C.get_setting("skin_path", "") # Fallback will be handled in ops if needed
+        utility_bone_name = prefs.utility_bone_name
+        skin_path = prefs.skin_path
 
         try:
             skinProp = rig_bones.get(utility_bone_name)

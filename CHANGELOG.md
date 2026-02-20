@@ -14,10 +14,9 @@ The current plan is to integrate a smart loader that will automatically detect t
 - Created a new `utils` sub-module for shared logic.
   - Moved `icons` to `utils.icons`.
   - Added `utils.file` for file operations.
-    - Moved config path fallback logic into the `open_path` utility.
+    - Moved storage path fallback logic into the `open_path` utility.
   - Added `utils.image` for image processing.
 - Implemented a basic `prefs` submodule for addon preferences.
-- Added a custom configuration path implementation for storing non-addon preferences (e.g., skin download settings) in an external JSON file.
 - Updated local file storage to use `bpy.utils.extension_path_user` for Blender Extension guideline compliance.
 - Refactored `src/` to comply with the new BPY module calling conventions.
 - Implemented a basic skin panel in `src/interface/skin_panel.py`.

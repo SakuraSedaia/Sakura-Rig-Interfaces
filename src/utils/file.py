@@ -81,14 +81,13 @@ def delete_file(path):
 def open_path(path=None):
     """
     Opens a path in the OS file explorer.
-    If path is None, opens the default config directory.
     """
     import bpy.ops as O
     import os
     
     if not path:
-        from . import config
-        path = os.path.dirname(config.get_default_config_path())
+        import bpy.utils as U
+        path = U.extension_path_user(__package__, create=True, path="")
 
     if os.path.exists(path):
         O.wm.path_open(filepath=path)
